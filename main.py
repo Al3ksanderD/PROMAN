@@ -13,7 +13,9 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    return render_template('index.html')
+    get_all_boards = queries.get_boards()
+    # get_all_cards = queries.get_cards_for_board()
+    return render_template('index.html', get_all_boards = get_all_boards)
 
 
 @app.route("/api/boards")
