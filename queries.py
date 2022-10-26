@@ -7,12 +7,7 @@ def get_boards(cursor):
     boards = cursor.fetchall()
 
     return boards
-    # return connection.execute_select(
-    #     """
-    #     SELECT * FROM boards
-    #     ;
-    #     """
-    # )
+
 
 def get_card_status(status_id):
     """
@@ -33,17 +28,14 @@ def get_card_status(status_id):
 
 
 
-def get_cards_for_board(board_id):
-    cursor.execute("""SELECT * FROM cards;""")
-    cards = cursor.fetchall()
-
-
-    matching_cards = connection.execute_select(
-        """
-        SELECT * FROM cards
-        WHERE cards.board_id = %(board_id)s
-        ;
-        """
+def get_cards_for_board(cursor):
+    cursor.execute(
+    """
+            SELECT * FROM cards
+            WHERE cards.board_id = %(board_id)s
+            ;
+            """
         , {"board_id": board_id})
-
+    matching_cards = cursor.fetchall()
     return matching_cards
+

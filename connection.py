@@ -1,11 +1,13 @@
-# Creates a decorator to handle the database connection/cursor opening/closing.
-# Creates the cursor with RealDictCursor, thus it returns real dictionaries, where the column names are the keys.
+
 import os
 import psycopg2
 import psycopg2.extras
 
+
+
 def get_connection_string():
     # # setup connection string for localhost
+
     # # to do this, please define these environment variables first
     # user_name = os.environ.get('PSQL_USER_NAME')
     # password = os.environ.get('PSQL_PASSWORD')
@@ -49,3 +51,13 @@ def connection_handler(function):
         return ret_value
 
     return wrapper
+
+def connect_login():
+    DB_HOST = "manny.db.elephantsql.com"
+    DB_NAME = "atvrkdif"
+    DB_USER = "atvrkdif"
+    DB_PASS = "lfw6LPy8MgzV9bl0X4RIls4FLXNWg7Ff"
+
+    return psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+
+

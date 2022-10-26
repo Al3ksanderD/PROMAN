@@ -1,8 +1,6 @@
 import os
 import psycopg2
 import psycopg2.extras
-import connection
-
 
 
 def establish_connection(connection_data=None):
@@ -24,7 +22,7 @@ def establish_connection(connection_data=None):
         print("Cannot connect to database.")
         print(e)
     else:
-        return 'postgres://atvrkdif:lfw6LPy8MgzV9bl0X4RIls4FLXNWg7Ff@manny.db.elephantsql.com/atvrkdif'
+        return conn
 
 
 def get_connection_data(db_name=None):
