@@ -2,13 +2,22 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/navmenu.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/panel_login.css') }}">
 </head>
 <body>
-<div class="c">
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Logout</button>
-</div>
+<nav class="NavMenu ">
+    <menu>
+        <menuitem class="HelpSupport">
+            <a>User Panel</a>
+            <menu>
+                <menuitem><a onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</a></menuitem>
+                <menuitem><a onclick="document.getElementById('id03').style.display='block'" style="width:auto;">Profile</a></menuitem>
+                <menuitem><a onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Logout</a></menuitem>
+            </menu>
+</nav>
+
 <div id="id01" class="modal ">
     <div class="imgcontainer">
         <span onclick="document.getElementById('id01').style.display='none'" class="close"
@@ -56,6 +65,7 @@
     </div>
 </div>
 <script src="/static/js/login_panel.js"></script>
+
 
 </body>
 
