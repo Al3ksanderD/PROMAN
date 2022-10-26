@@ -23,6 +23,12 @@ def index():
     return render_template('index.html', get_all_boards = get_all_boards)
 
 
+@app.route("/board")
+def display_board():
+
+    return render_template('board.html', title = "ProMan Board!")
+
+
 @app.route("/api/boards")
 @json_response
 def get_boards():

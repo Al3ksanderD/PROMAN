@@ -4,4 +4,84 @@
 }
 body{
     background-color: #085900;
+
 }
+
+.main-container {
+    background-color: #c4c4c4;
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+    padding-left: 15px;
+
+}
+.add-task-container {
+    align-content: center;
+    align-items: center;
+    background-color: #7b7575;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0 solid red;
+    border-radius: 25px;
+}
+
+.form-main {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.add-task-button {
+    margin-left: 40%;
+}
+
+.task-col {
+    align-content: center;
+    color: black;
+    background-color: white;
+    margin: 10px;
+    height: 60vh;
+    border: 0 solid red;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.col-title {
+    padding: 10px;
+    align-items: center;
+    background-color: #bd9c9c;
+    margin-top: 15px;
+    border: 0 solid red;
+    border-radius: 25px;
+}
+
+.todo1, .todo2, .todo3 {
+    padding: 15px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin: 10px;
+    text-align: center;
+    border: 0 solid red;
+    border-radius: 25px;
+
+
+
+}
+
+.todo1 {
+    background-color: green;
+}
+
+.todo2 {
+    background-color: #ffc600;
+}
+
+.todo3 {
+    background-color: #b61717;
+}
+
+
+

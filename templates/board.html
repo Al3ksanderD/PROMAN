@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Proman | Board!</title>
+    {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
+    <script src="{{ url_for('static', filename='js/board.js') }}" defer></script>
+</head>
+<body >
+    <div class="container main-container" id="main-container">
+        <div id="add-task-container" class="add-task-container">
+            <div class="input-group">
+              <span class="input-group-text">Enter your Task!</span>
+              <textarea class="form-control" id="task-title" aria-label="With textarea">blablabla</textarea>
+            </div>
+            <select class="form-select form-select-lg mb-3 form-main" id="priority-title" aria-label=".form-select-lg example" aria-label="Default select example" id="task-priority">
+                  <option selected value="2">Select Priority</option>
+                  <option value="3">High Priority</option>
+                  <option value="2">Medium Priority</option>
+                  <option value="1">Low Priority</option>
+            </select>
+            <p></p>
+            <button id="task-add-button" class="btn btn-secondary add-task-button" >Add Task!</button>
+        </div>
+        <div class="row">
+
+            <div class="col task-col" id="task-to-do-container">
+                <div class="col-title">
+               TASKS TO DO!
+               </div>
+               <div>
+
+               </div>
+            </div>
+            <div class="col task-col" id="task-in-progress-container">
+                 <div class="col-title">
+                TASKS IN PROGRESS
+                </div>
+               <div>
+
+               </div>
+            </div>
+            <div class="col task-col" id="task-done-container">
+                 <div class="col-title">
+                TASKS DONE!
+                </div>
+               <div>
+
+               </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

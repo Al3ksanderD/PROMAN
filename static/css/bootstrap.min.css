@@ -41,6 +41,7 @@
 
 html {
     font-family: sans-serif;
+    color:white;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -579,7 +580,8 @@ pre code {
     width: 100%;
     min-height: 1px;
     padding-right: 15px;
-    padding-left: 15px
+    padding-left: 15px;
+    color: white;
 }
 
 .col {
