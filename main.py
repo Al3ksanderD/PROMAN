@@ -18,9 +18,7 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    get_all_boards = queries.get_boards()
-    # get_all_cards = queries.get_cards_for_board()
-    return render_template('index.html', get_all_boards = get_all_boards)
+    return render_template('index.html')
 
 
 @app.route("/board")
@@ -38,16 +36,21 @@ def get_boards():
     return queries.get_boards()
 
 
-@app.route("/api/boards/<int:board_id>/cards/")
+@app.route("/get-cards/<int:board_id>")
 @json_response
-def get_cards_for_board(board_id: int):
+def get_cards_for_board(board_id):
     """
     All cards that belongs to a board
     :param board_id: id of the parent board
     """
-    return queries.get_cards_for_board(board_id)
+    return data_handler.get_cards_for_board(board_id)
 
-
+@app.route("/boards", methods=['POST'])
+@json_response
+def save_new_board():
+    new_board_name = request.form['name']
+    new_board_title = queries.saving_new_board(new_board_name)
+    return new_board_title
 
 
 

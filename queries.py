@@ -1,5 +1,5 @@
 import connection
-
+from psycopg2.extras import RealDictCursor
 
 @connection.connection_handler
 def get_boards(cursor):
@@ -27,15 +27,26 @@ def get_card_status(status_id):
 
 
 
-
-def get_cards_for_board(cursor):
-    cursor.execute(
-    """
-            SELECT * FROM cards
+@connection.connection_handler
+def get_cards_from_board(cursor: RealDictCursor, board_id):
+    query = """
+            SELECT *
+            FROM cards
             WHERE cards.board_id = %(board_id)s
-            ;
+            ORDER BY id;
             """
-        , {"board_id": board_id})
-    matching_cards = cursor.fetchall()
-    return matching_cards
 
+    cursor.execute(query, {'board_id': board_id})
+    return cursor.fetchall()
+
+@connection.connection_handler
+def add_new_board(cursor: RealDictCursor, new_board_title):
+    query = """
+            INSERT INTO boards(title) 
+            VALUES (%(new_board_title)s)
+            returning id, title;
+            """
+
+    cursor.execute(query, {'new_board_title': new_board_title})
+    new_board_id = cursor.fetchall()
+    return new_board_id
