@@ -48,3 +48,12 @@ def rename_card_name(card_id, new_card_name):
               "card_id": card_id
               }
     )
+
+
+@connection.connection_handler
+@app.route("/api/cards/<int:card_id>/update", methods=["PUT"])
+def update_card_name(card_id: int):
+    new_card_name = request.json
+    card_queries.update_card_name(card_id, new_card_name)
+
+    return render_template('index.html')

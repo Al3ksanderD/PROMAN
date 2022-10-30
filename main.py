@@ -15,9 +15,9 @@ app = Flask(__name__)
 load_dotenv()
 app.secret_key = 'lubie0placki'
 
-from executive import board_executive
-from executive import card_executive
-from executive import status_executive
+from executive import *
+# from executive import card_executive
+# from executive import status_executive
 
 
 @app.route("/")

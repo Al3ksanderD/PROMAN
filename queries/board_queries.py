@@ -55,5 +55,5 @@ def delete_board(board_id):
     return connection.execute_query(
         """
         DELETE FROM boards
-        WHERE id = %(b_id)s
-        """, {"b_id": board_id})
+        WHERE id = %(board_id)s
+        """, {"board_id": board_id})

@@ -10,9 +10,10 @@ function addTask() {
     let title = document.getElementById("task-title").value
     let priority = document.getElementById("priority-title").value
 
-    renderTask(title,priority)
+    renderTask(title, priority)
     updateVars()
-}
+};
+
 
 function delTask(event) {
     console.log(event.target.dataset.Del, " is going to get deleted");
@@ -23,6 +24,7 @@ function updateVars() {
     draggables = document.querySelectorAll('.draggable');
     containers = document.querySelectorAll('.task-col');
     deleteButtons = document.querySelectorAll(".delete-task-button")
+
     checkEvents()
 }
 
@@ -30,12 +32,16 @@ function renderTask(title, priority) {
     console.log("render bla bla")
 
     const edit = document.createElement('button');
-    edit.innerText = "Edit Todo";
+    edit.innerText = "Edit";
     edit.id = `editTodo`;
     edit.dataset.Edit = `todo${todoId}`
     edit.classList.add("btn");
     edit.classList.add("btn-secondary");
     edit.classList.add("edit-task-button");
+
+    edit.setAttribute("contentEditable", false);
+    edit.setAttribute("onclick", 'edit()')
+
 
     const button = document.createElement('button');
     button.innerText = "Delete Todo";
@@ -44,6 +50,7 @@ function renderTask(title, priority) {
     button.classList.add("btn");
     button.classList.add("btn-secondary");
     button.classList.add("delete-task-button");
+    button.setAttribute("contentEditable", false);
 
     const todo = document.createElement('div');
     todo.setAttribute("draggable", true);
@@ -54,19 +61,19 @@ function renderTask(title, priority) {
     todo.classList.add("draggable");
 
 
-
     document.getElementById("task-to-do-container").appendChild(todo);
     document.getElementById(`todo${todoId}`).appendChild(button);
     document.getElementById(`todo${todoId}`).appendChild(edit);
     todoId += 1;
 }
+
 function checkEvents() {
     deleteButtons.forEach(button => {
         button.addEventListener("click", () => {
-             console.log(event.target.dataset.Del + " is going to get deleted");
-             let idToDel = event.target.dataset.Del;
-             let element = document.getElementById(idToDel);
-             element.parentNode.removeChild(element);
+            console.log(event.target.dataset.Del + " is going to get deleted");
+            let idToDel = event.target.dataset.Del;
+            let element = document.getElementById(idToDel);
+            element.parentNode.removeChild(element);
 
         });
     })
@@ -96,7 +103,16 @@ function checkEvents() {
     })
 }
 
+let myEditableElement = document.getElementById('todo0');
+myEditableElement.addEventListener('input', function () {
+    console.log('An edit input has been detected');
+    console.log(myEditableElement.innerHTML);
 
- // function refresh(){
- //        window.location.reload("Refresh")
- //      }
+});
+
+function edit() {
+    let edit_button = document.getElementById('todo0');
+    edit_button.setAttribute("contentEditable", true);
+}
+
+
