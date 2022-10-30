@@ -13,66 +13,26 @@ mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
 app.secret_key = 'lubie0placki'
+
+from executive import board_executive
+from executive import card_executive
+from executive import status_executive
+
+
 @app.route("/")
 def index():
-    """
-    This is a one-pager which shows all the boards and cards
-    """
     return render_template('index.html')
 
 
-@app.route("/board")
-def display_board():
-
-    return render_template('board.html', title = "ProMan Board!")
-
-
-@app.route("/api/boards")
-@json_response
-def get_boards():
-    """
-    All the boards
-    """
-    return queries.get_boards()
-
-
-@app.route("/get-cards/<int:board_id>")
-@json_response
-def get_cards_for_board(board_id):
-    """
-    All cards that belongs to a board
-    :param board_id: id of the parent board
-    """
-    return data_handler.get_cards_for_board(board_id)
-
-@app.route("/boards", methods=['POST'])
-@json_response
-def save_new_board():
-    new_board_name = request.form['name']
-    new_board_title = queries.saving_new_board(new_board_name)
-    return new_board_title
-
-
-
-
-
-
-
-
-
-
-# REGISTER/LOGIN MODULE_______________________________________________________________________________________________
-# przyklad blokowania dostepu bez logowania
-# if 'loggedin' in session:
-#         return render_template('page.html' przekazane_zmienne = przekazane_zmienne )
-# return render_template('please_login.html')
-
+# REGISTER/LOGIN MODULE____________________________________________________________________________________________
 conn = connect_login()
+
 
 def home():
     if 'loggedin' in session:
         return render_template('index.html', username=session['username'])
     return redirect(url_for('login'))
+
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -96,6 +56,7 @@ def login():
         else:
             flash('Incorrect username/password')
     return render_template('login.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -140,6 +101,7 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
+
 @app.route('/profile')
 def profile():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -149,12 +111,38 @@ def profile():
         return render_template('profile.html', account=account)
     return redirect(url_for('login'))
 
+
+def login_required(function):
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if 'id' in session:
+            return function(*args, **kwargs)
+        else:
+            flash("You are not logged in")
+            return redirect(url_for('login'))
+
+    return wrap
+
+
+def already_logged_in(function):
+    @wraps(function)
+    def wrap(*args, **kwargs):
+        if 'id' not in session:
+            return function(*args, **kwargs)
+        else:
+            flash(f"You are already logged in, {session['username']}")
+            return redirect(url_for('login_page'))
+
+    return wrap
+
+
 def main():
     app.run(debug=True)
 
     # Serving the favicon
     with app.app_context():
         app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
+
 
 if __name__ == '__main__':
     main()

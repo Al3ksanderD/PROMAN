@@ -1,8 +1,6 @@
-
 import os
 import psycopg2
 import psycopg2.extras
-
 
 
 def get_connection_string():
@@ -26,8 +24,9 @@ def get_connection_string():
     #     )
     # else:
     #     raise KeyError('Some necessary environment variable(s) are not defined')
-    #for elephantSQL database
+    # for elephantSQL database
     return 'postgres://atvrkdif:lfw6LPy8MgzV9bl0X4RIls4FLXNWg7Ff@manny.db.elephantsql.com/atvrkdif'
+
 
 def open_database():
     try:
@@ -52,6 +51,7 @@ def connection_handler(function):
 
     return wrapper
 
+
 def connect_login():
     DB_HOST = "manny.db.elephantsql.com"
     DB_NAME = "atvrkdif"
@@ -59,5 +59,3 @@ def connect_login():
     DB_PASS = "lfw6LPy8MgzV9bl0X4RIls4FLXNWg7Ff"
 
     return psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
-
-

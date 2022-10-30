@@ -1,55 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>ProMan</title>
+{% extends 'base.html' %}
 
-    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
-    <link rel="icon" type="image/png" sizes="32x32"
-          href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="96x96"
-          href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16"
-          href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"  defer></script>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-    <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
-</head>
-{% include 'login_panel.html' %}
+{% block content %}
+    {% if 'username' in session %}
+        <p>
+            <button type="button" class='btn btn-outline-light' data-toggle='modal' data-target='#newBoard'
+                    id="create_private_board" data-user-id="{{ session['id'] }}" name="new_board">Add Private Board
+            </button>
+        </p>
+        <p>
+            <button type="button" class='btn btn-outline-light' data-toggle='modal' data-target='#newBoard'
+                    id="create_public_board" data-user-id="{{ session['id'] }}" name="new_board">Add Public Board
+            </button>
+        </p>
+    {% endif %}
+    {% if not 'username' in session %}
+        <p>
+            <button type="button" class='btn btn-outline-light' data-toggle='modal' data-target='#newBoard'
+                    id="create_public_board" data-user-id="{{ session['id'] }}" name="new_board">Add Public Board
+            </button>
+        </p>
+    {% endif %}
 
-<body>
-<div class="center "><a href="/"><img alt="logo" src="/static/images/proman.png"
-                                      width="20%" height="20%"></a></div>
+    <div id="root"></div>
+{% endblock %}
 
-
-
-<div class="board-container">
-    <button class="add-board-button" >Add Board</button>
-    <label>
-        <input type="text" id="input-new-board-title" required placeholder="Enter New Board title" hidden>
-    </label>
-    <button id="board-add" type="submit">Create Board</button>
-    <div class="card-container"></div>
-</div>
-<div id="root"></div>
-
-
-
-
-</body>
-<footer>
-    {% block footer %}
-        <div class="center">
-            <footer id="footer">
-                <marquee behavior="scroll" direction="left">
-                    <col-pro>PRO</col-pro>
-                    <col-man>MAN</col-man>
-                    Project CodeCool 2022 Krzysztof Król & Aleksander Dudziński
-                </marquee>
-            </footer>
-        </div> {% endblock %}
-</footer>
-</html>
+{% block footer %}
+    <div class="center">
+        <footer id="footer">
+            <marquee behavior="scroll" direction="left">
+                <col-pro>PRO</col-pro>
+                <col-man>MAN</col-man>
+                Project CodeCool 2022 Krzysztof Król & Aleksander Dudziński
+            </marquee>
+        </footer>
+    </div>
+{% endblock %}

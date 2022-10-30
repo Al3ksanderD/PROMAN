@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ProMan</title>
+
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96"
+          href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"  defer></script>
+
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
+      <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+{% include 'login_panel.html' %}
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <li>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+
+<div class="content">
+    <button id="reload" type="button" class='btn btn-outline-light'>Refresh <img alt="refresh" src="static/images/refresh.png" width="10"></button>
+    <div class="center "><a href="/"><img alt="logo" src="/static/images/proman.png"
+                                      width="20%" height="20%"></a></div>
+    <p>
+
+    </p>
+    {% block content %}
+    {% endblock %}
+</div>
+{% block footer %}
+    {% endblock %}
+</body>
+</html>
+
