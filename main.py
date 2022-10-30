@@ -9,6 +9,7 @@ import psycopg2.extras
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
