@@ -2,6 +2,7 @@ let todoId = 0
 let draggables = document.querySelectorAll('.draggable')
 let containers = document.querySelectorAll('.task-col')
 let deleteButtons = document.querySelectorAll("delTodo")
+let myEditableElement = document.querySelectorAll(".edit-task-button");
 
 document.getElementById("task-add-button").addEventListener("click", addTask);
 
@@ -14,43 +15,75 @@ function addTask() {
     updateVars()
 };
 
+function editTask(event) {
+    let string = event.currentTarget.myParam
+    let id = string.charAt(string.length-1);
 
-function delTask(event) {
-    console.log(event.target.dataset.Del, " is going to get deleted");
+    let editedValue = document.getElementById("afterEdit").value
+    let newValue = document.getElementById(event.currentTarget.myParam)
+    let delButton = createDeleteButton(id)
+    let editButton = createEditButton(id)
+
+
+    console.log(id + "Thats the last")
+
+    newValue.innerHTML = editedValue + "<br>";
+
+    newValue.appendChild(delButton);
+    newValue.appendChild(editButton);
+
+    updateVars()
+
+
+
+}
+
+function delTask(element) {
+
+    element.parentNode.removeChild(element);
+
+}
+
+function createDeleteButton(id) {
+    const button = document.createElement('button');
+    button.innerText = "Delete Todo";
+    button.id = `delTodo`;
+    button.dataset.Del = `todo${id}`
+    button.classList.add("btn");
+    button.classList.add("btn-secondary");
+    button.classList.add("delete-task-button");
+    return button;
+
+}
+
+function createEditButton(id) {
+    const edit = document.createElement('button');
+    edit.innerText = "Edit";
+    edit.id = `editTodo`;
+    edit.dataset.Edit = `todo${id}`
+    edit.classList.add("btn");
+    edit.classList.add("btn-secondary");
+    edit.classList.add("edit-task-button");
+    return edit;
 
 }
 
 function updateVars() {
     draggables = document.querySelectorAll('.draggable');
     containers = document.querySelectorAll('.task-col');
-    deleteButtons = document.querySelectorAll(".delete-task-button")
+    deleteButtons = document.querySelectorAll(".delete-task-button");
+    myEditableElement = document.querySelectorAll(".edit-task-button");
 
     checkEvents()
 }
 
+
+
+
 function renderTask(title, priority) {
     console.log("render bla bla")
-
-    const edit = document.createElement('button');
-    edit.innerText = "Edit";
-    edit.id = `editTodo`;
-    edit.dataset.Edit = `todo${todoId}`
-    edit.classList.add("btn");
-    edit.classList.add("btn-secondary");
-    edit.classList.add("edit-task-button");
-
-    edit.setAttribute("contentEditable", false);
-    edit.setAttribute("onclick", 'edit()')
-
-
-    const button = document.createElement('button');
-    button.innerText = "Delete Todo";
-    button.id = `delTodo`;
-    button.dataset.Del = `todo${todoId}`
-    button.classList.add("btn");
-    button.classList.add("btn-secondary");
-    button.classList.add("delete-task-button");
-    button.setAttribute("contentEditable", false);
+    let edit = createEditButton(todoId)
+    let button = createDeleteButton(todoId)
 
     const todo = document.createElement('div');
     todo.setAttribute("draggable", true);
@@ -68,12 +101,27 @@ function renderTask(title, priority) {
 }
 
 function checkEvents() {
+
+    myEditableElement.forEach(button => {
+        button.addEventListener("click", () => {
+            let editId = event.target.dataset.Edit;
+            console.log(editId + " is going to get edited");
+            let toChange = document.getElementById(editId);
+            let inputArea = '<textarea id="afterEdit"> </textarea>'
+            let buttonArea = '<button id="afterEditButton"> Edit! </button>'
+            toChange.innerHTML = inputArea + "<br>" + buttonArea;
+            let afterEdit = document.getElementById("afterEditButton")
+            afterEdit.myParam = editId
+            afterEdit.addEventListener("click", editTask);
+
+        })
+    })
+
     deleteButtons.forEach(button => {
         button.addEventListener("click", () => {
-            console.log(event.target.dataset.Del + " is going to get deleted");
             let idToDel = event.target.dataset.Del;
             let element = document.getElementById(idToDel);
-            element.parentNode.removeChild(element);
+            delTask(element);
 
         });
     })
@@ -101,18 +149,16 @@ function checkEvents() {
 
         })
     })
+
+
+
+
+
 }
 
-let myEditableElement = document.getElementById('todo0');
-myEditableElement.addEventListener('input', function () {
-    console.log('An edit input has been detected');
-    console.log(myEditableElement.innerHTML);
 
-});
 
-function edit() {
-    let edit_button = document.getElementById('todo0');
-    edit_button.setAttribute("contentEditable", true);
-}
+
+
 
 
