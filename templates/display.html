@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<style>
+
+    td {
+        width: 150px;
+        text-align: center;
+        border: 1px solid black;
+        padding: 5px;
+    }
+</style>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>title</th>
+        <th>priority</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in boards %}
+        <tr>
+            <td>{{ row['id'] }}</td>
+            <td>{{ row['title'] }}</td>
+            <td>{{ row['priority'] }}</td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>board_id</th>
+        <th>status_id</th>
+        <th>title</th>
+        <th>card_order</th>
+        <th>archived</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for row in cards %}
+        <tr>
+            <td>{{ row['id'] }}</td>
+            <td>{{ row['board_id'] }}</td>
+            <td>{{ row['status_id'] }}</td>
+            <td>{{ row['title'] }}</td>
+            <td>{{ row['card_order'] }}</td>
+            <td>{{ row['archived'] }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</body>
+</html>

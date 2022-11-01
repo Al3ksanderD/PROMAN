@@ -1,28 +1,160 @@
-from flask import Flask, render_template, url_for, session, flash, request, redirect
+from flask import Flask, render_template, url_for, session, flash, request, redirect, jsonify
 from dotenv import load_dotenv
 from util import json_response
 import mimetypes
 import queries
 from connection import connect_login
-import datetime
 import psycopg2.extras
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
-
+import connection
 
 mimetypes.add_type('application/javascript', '.js')
 app = Flask(__name__)
 load_dotenv()
 app.secret_key = 'lubie0placki'
 
-from executive import *
-# from executive import card_executive
-# from executive import status_executive
 
-
-@app.route("/")
+@app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/display')
+def display():
+    boards = queries.get_boards()
+    cards = queries.get_cards_for_board()
+    return render_template('display.html', boards=boards, cards=cards)
+
+
+# BOARD____________________________________________________________________________________________-
+
+@app.route("/board")
+def display_board():
+    return render_template('board.html', title="ProMan Board!")
+
+
+# @app.route("/api/boards/private")
+# @json_response
+# def get_private_boards():
+#     """
+#     All the private boards
+#     """
+#     user_id = request.args['user']
+#     return queires.get_private_boards(user_id)
+
+
+@app.route("/api/boards")
+@json_response
+def get_boards():
+    """
+    All the public boards
+    """
+    return queries.get_boards()
+
+
+@app.route("/api/boards/<int:board_id>", methods=["PUT"])
+def rename_board(board_id: int):
+    new_title = request.json
+    queries.rename_board(new_title, board_id)
+    return render_template('index.html')
+
+
+@app.route("/api/boards/add", methods=["POST"])
+@json_response
+def add_board():
+    board = request.json
+    board_title = board["title"]
+    board_id = queries.add_board(board_title)
+    return board_id
+
+
+@app.route("/api/boards/delete/<int:board_id>", methods=["DELETE"])
+def delete_board(board_id):
+    queries.delete_board(board_id)
+
+    return make_response("404")
+
+
+# CARDS______________________________________________________________________________________________________
+
+
+@app.route("/api/cards")
+@json_response
+def get_all_cards():
+    return queries.get_cards()
+
+
+@app.route("/api/boards/<int:board_id>/cards/")
+@json_response
+def get_cards_for_board(board_id: int):
+    return queries.get_cards_for_board(board_id)
+
+
+@app.route("/api/boards/<int:board_id>/cards/add", methods=["POST"])
+def add_card(board_id: int):
+    card = request.json
+    queries.add_card(card, board_id)
+
+    return render_template("index.html")
+
+
+@app.route("/api/cards/<int:card_id>/update", methods=["PUT"])
+def rename_card_name(card_id: int):
+    new_card_name = request.json
+    queries.rename_card_name(card_id, new_card_name)
+
+    return render_template('index.html')
+
+
+@app.route("/api/cards/delete/<int:card_id>", methods=["DELETE"])
+def delete_card(card_id):
+    queries.delete_card(card_id)
+
+    return make_response("201")
+
+
+# STATUS_________________________________________________________________________________________________
+
+@app.route("/api/statuses")
+@json_response
+def get_statuses():
+    return queries.get_statuses()
+
+
+@app.route("/api/statuses/<int:status_id>", methods=["PUT"])
+def update_status_title(status_id: int):
+    new_title = request.json
+    queries.rename_status(new_title, status_id)
+    return redirect("/")
+
+
+@app.route("/api/cards/<int:card_id>/update/<int:status_id>", methods=["PUT"])
+def update_status_id(card_id: int, status_id: int):
+    """
+    Update the status_id of a card
+    """
+    new_status_id_dict = request.json
+    new_status_id = new_status_id_dict["new_status_id"]
+    queries.update_status_id(new_status_id, card_id, status_id)
+    return render_template('index.html')
+
+
+@app.route("/api/statuses/add", methods=["POST"])
+def create_status():
+    status = request.json
+    title = status["title"]
+    board_id = status["board_id"]
+    queries.add_status(title, board_id)
+
+    return redirect("/")
+
+
+@app.route("/api/statuses/delete/<int:status_id>", methods=["DELETE"])
+def delete_status(status_id):
+    queries.delete_status(status_id)
+
+    return make_response("201")
 
 
 # REGISTER/LOGIN MODULE____________________________________________________________________________________________

@@ -18,8 +18,10 @@
     {#    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">#}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
     <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+     <script type="module" src="{{ url_for('static', filename='js/connect.js') }}" defer></script>
 </head>
 <body>
+
 {% include 'login_panel.html' %}
 
 {% with messages = get_flashed_messages() %}

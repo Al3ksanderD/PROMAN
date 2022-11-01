@@ -33,6 +33,7 @@ def open_database():
         connection_string = get_connection_string()
         connection = psycopg2.connect(connection_string)
         connection.autocommit = True
+        print('connected to database')
     except psycopg2.DatabaseError as exception:
         print('Database connection problem')
         raise exception
@@ -59,3 +60,4 @@ def connect_login():
     DB_PASS = "lfw6LPy8MgzV9bl0X4RIls4FLXNWg7Ff"
 
     return psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
+
