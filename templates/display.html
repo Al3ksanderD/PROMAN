@@ -21,18 +21,7 @@
         <th>priority</th>
     </tr>
     </thead>
-    <tbody>
-{#    {% for board in boards %}#}
-{#        <tr>#}
-{#            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['id']) }}">{{ board['id'] }}</a>#}
-{#            </td>#}
-{#            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['id']) }}">{{ board['title'] }}</a></td>#}
-{#            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['id']) }}">{{ board['priority'] }}</a></td>#}
-{##}
-{#        </tr>#}
-{#    {% endfor %}#}
-    </tbody>
-</table>
+
 
 <table>
     <thead>
@@ -46,14 +35,14 @@
     </tr>
     </thead>
     <tbody>
-    {% for board in cards %}
+    {% for card in cards %}
         <tr>
-            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['id'] }}</a></td>
-            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['board_id'] }}</a></td>
-            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['status_id'] }}</a></td>
-            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['title'] }}</a></td>
-            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['card_order'] }}</a></td>
-            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['archived'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=card['board_id']) }}">{{ card['id'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=card['board_id']) }}">{{ card['board_id'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=card['board_id']) }}">{{ card['status_id'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=card['board_id']) }}">{{ card['title'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=card['board_id']) }}">{{ card['card_order'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=card['board_id']) }}">{{ card['archived'] }}</a></td>
         </tr>
     {% endfor %}
     </tbody>
