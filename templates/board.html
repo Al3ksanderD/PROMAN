@@ -27,28 +27,34 @@
             </select>
             <p></p>
             <button id="task-add-button" class="btn btn-secondary add-task-button" >Add Task!</button>
+            <button id="column-add-button" class="btn btn-secondary add-column-button" >Add Column!</button>
         </div>
-        <div class="row">
+        <div class="row" id="col-container">
 
-            <div class="col task-col" id="task-to-do-container">
-                <div class="col-title">
-               TASKS TO DO!
+            <div class="col task-col" id="task-col-1">
+                <div class="col-title" id="col-title-1">
+                    <div class="title">TASKS TO DO! </div>
+
                </div>
                <div>
 
                </div>
             </div>
-            <div class="col task-col" id="task-in-progress-container">
-                 <div class="col-title">
-                TASKS IN PROGRESS
+            <div class="col task-col" id="task-col-2">
+                 <div class="col-title" id="col-title-2">
+                    <div class="title"> TASKS IN PROGRESS </div>
+                    <button id="deleteColButton" class="btn btn-secondary delete-col-button"> DELETE</button>
+                    <button id="editColButton" class="btn btn-secondary edit-col-button"> Edit</button>
                 </div>
                <div>
 
                </div>
             </div>
-            <div class="col task-col" id="task-done-container">
-                 <div class="col-title">
-                TASKS DONE!
+            <div class="col task-col" id="task-col-3">
+                 <div class="col-title" id="col-title-3">
+                    <div class="title"> TASKS DONE! </div>
+                    <button id="deleteColButton" class="btn btn-secondary delete-col-button"> DELETE</button>
+                     <button id="editColButton" class="btn btn-secondary edit-col-button"> Edit</button>
                 </div>
                <div>
 
