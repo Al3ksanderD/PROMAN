@@ -22,14 +22,15 @@
     </tr>
     </thead>
     <tbody>
-    {% for row in boards %}
-        <tr>
-            <td>{{ row['id'] }}</td>
-            <td>{{ row['title'] }}</td>
-            <td>{{ row['priority'] }}</td>
-
-        </tr>
-    {% endfor %}
+{#    {% for board in boards %}#}
+{#        <tr>#}
+{#            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['id']) }}">{{ board['id'] }}</a>#}
+{#            </td>#}
+{#            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['id']) }}">{{ board['title'] }}</a></td>#}
+{#            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['id']) }}">{{ board['priority'] }}</a></td>#}
+{##}
+{#        </tr>#}
+{#    {% endfor %}#}
     </tbody>
 </table>
 
@@ -45,14 +46,14 @@
     </tr>
     </thead>
     <tbody>
-    {% for row in cards %}
+    {% for board in cards %}
         <tr>
-            <td>{{ row['id'] }}</td>
-            <td>{{ row['board_id'] }}</td>
-            <td>{{ row['status_id'] }}</td>
-            <td>{{ row['title'] }}</td>
-            <td>{{ row['card_order'] }}</td>
-            <td>{{ row['archived'] }}</td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['id'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['board_id'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['status_id'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['title'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['card_order'] }}</a></td>
+            <td><a  href="{{ url_for('get_cards_for_board', board_id=board['board_id']) }}">{{ board['archived'] }}</a></td>
         </tr>
     {% endfor %}
     </tbody>

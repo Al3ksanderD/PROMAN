@@ -4,7 +4,7 @@ import connection
 # BOARD__________________________________________________________________________________________________-
 @connection.connection_handler
 def get_boards(cursor):
-    cursor.execute("""SELECT id,title,priority FROM boards""")
+    cursor.execute("""SELECT id,title,priority FROM boards WHERE user_id IS NULL """)
     boards = cursor.fetchall()
     return boards
 
@@ -55,7 +55,7 @@ def delete_board(board_id):
 
 
 @connection.connection_handler
-def get_cards_for_board(cursor, board_id=1):
+def get_cards_for_board(cursor, board_id):
     cursor.execute(
         """
         SELECT * FROM cards

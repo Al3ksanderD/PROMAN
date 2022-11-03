@@ -15,15 +15,18 @@ load_dotenv()
 app.secret_key = 'lubie0placki'
 
 
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
 
-@app.route('/display')
-def display():
+@app.route('/display/<board_id>')
+def display(board_id):
+
     boards = queries.get_boards()
-    cards = queries.get_cards_for_board()
+    cards = queries.get_cards_for_board(board_id)
     return render_template('display.html', boards=boards, cards=cards)
 
 

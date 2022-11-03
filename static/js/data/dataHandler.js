@@ -21,28 +21,41 @@ export let dataHandler = {
     getCard: async function (cardId) {
         // the card is retrieved and then the callback function is called with the card
     },
-    deleteBoards: async function (boardId) {
+    addNewBoard: async function addBoard(boardTitle) {
+        boardTitle = {title: boardTitle}
+        return await apiPost2("/api/boards/add", boardTitle);
+    },
+    deleteBoards: async function(boardId) {
         return await apiDelete(`/api/boards/delete/${boardId}`);
     },
-    deleteCard: async function (cardId) {
-        return await apiDelete(`/api/cards/delete/${cardId}`);
+    addNewCard: async function (cardTitle, boardId, statusId, cardOrder) {
+        let card = {"title": cardTitle,
+                    "status_id": statusId,
+                    "card_order": cardOrder};
+        return await apiPost( `/api/boards/${boardId}/cards/add`, card);
     },
-    deleteStatus: async function (statusId) {
+    deleteCard: async function (cardId) {
+      return   await apiDelete(`/api/cards/delete/${cardId}`);
+    },
+    addNewStatus: async function (statusTitle, boardId) {
+        let status =
+            {
+                title: statusTitle,
+                board_id : boardId
+            };
+        return await apiPost('/api/statuses/add', status);
+    },
+    deleteStatus: async function(statusId) {
         return await apiDelete(`/api/statuses/delete/${statusId}`);
     },
-    renameBoard: async function (boardTitle, boardId) {
+    updateBoardTitle: async function (boardTitle, boardId) {
 
         boardTitle = {title: boardTitle}
         return await apiPut(`/api/boards/${boardId}`, boardTitle);
     },
-    renameStatus: async function (statusName, statusId) {
+    updateStatusName: async function (statusName, statusId) {
         let columnTitle = {title: statusName};
         return await apiPut(`/api/statuses/${statusId}`, columnTitle);
-    },
-     renameCard: async function (cardId, name) {
-        let newCardName = {title: name};
-        return await apiPut(`/api/cards/${cardId}/update`, newCardName);
-
     },
     updateStatusId: async function (card_id, newStatusId, status_id) {
         let statusIdNew =
@@ -50,6 +63,11 @@ export let dataHandler = {
                 new_status_id: newStatusId
             };
         return await apiPut(`/api/cards/${card_id}/update/${status_id}`, statusIdNew);
+    },
+    updateCardName: async function (cardId, name) {
+        let newCardName = {title: name};
+        return await apiPut(`/api/cards/${cardId}/update`, newCardName);
+
     },
     updateCardOrder: async function (card_id, new_order_id, status_id, old_pos) {
         let newCardOrder =
@@ -59,30 +77,11 @@ export let dataHandler = {
             }
         return await apiPut(`/api/cards/${card_id}/update/${status_id}/card_order`, newCardOrder)
     },
-    addNewStatus: async function (statusTitle, boardId) {
-        let status =
-            {
-                title: statusTitle,
-                board_id: boardId
-            };
-        return await apiPost('/api/statuses/create', status);
-    },
-    addNewBoard: async function createBoard(boardTitle) {
-        boardTitle = {title: boardTitle}
-        return await apiPost2("/api/boards/create", boardTitle);
-    },
-    addNewCard: async function (cardTitle, boardId, statusId, cardOrder) {
-        let card = {
-            "title": cardTitle,
-            "status_id": statusId,
-            "card_order": cardOrder
-        };
-        return await apiPost(`/api/boards/${boardId}/cards/create`, card);
-    },
+    updateArchivedStatus: async function (cardId, cardArchived) {
+        let newArchivedStatus = {archived: !cardArchived};
+        return await apiPut(`/api/cards/${cardId}/update/archived`, newArchivedStatus)
+    }
 };
-
-
-
 
 async function apiGet(url) {
     let response = await fetch(url, {
@@ -93,11 +92,26 @@ async function apiGet(url) {
     }
 }
 
-async function apiPost(url, payload) {
+async function apiPost2(url, payload) {
+
     let response = await fetch(url, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+             "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+    });
+    if (response.ok) {
+        return await response.json();
+    }
+}
+
+async function apiPost(url, payload) {
+
+    let response = await fetch(url, {
+        method: "POST",
+        headers: {
+             "Content-Type": "application/json"
         },
         body: JSON.stringify(payload)
     });
@@ -106,17 +120,14 @@ async function apiPost(url, payload) {
     }
 }
 
-async function apiPost2(url, payload) {
-
+async function apiPut(url, payload) {
     let response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(payload)
     });
     if (response.ok) {
-        return await response.json();
+        return console.log(response.ok);
     }
 }
 
@@ -128,16 +139,6 @@ async function apiDelete(url) {
     }
 }
 
-async function apiPut(url) {
-    let response = await fetch(url, {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(payload)
-    });
-    if (response.ok) {
-        return console.log(response.ok);
-    }
-}
 
 async function apiPatch(url) {
 }
