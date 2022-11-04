@@ -12,15 +12,16 @@
 </head>
 <body style="background-color:#ccc;">
 <div class="login-box">
-    <div class="login-header">Login</div>
+    <h1><div class="login-header">Login</div></h1>
     <div class="login-body">
-        <p>Please enter your username and password</p>
-        <form class="form-group" action="{{ url_for('login') }}" method="post">
-            <label>Username</label>
+       <h1> <p>Please enter your username and password</p></h1>
+         <form class="form-group-head c" action="{{ url_for('login') }}" method="post">
+            <h3><label class="cols-sm-2 control-label">Username</label></h3>
             <input type="text" class="form-control" name="username" placeholder="Username" id="username" required>
-            <label>Password</label>
-            <input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
-            <input type="checkbox" value="checked"><b>Remember</b>
+            <h3><label class="cols-sm-2 control-label">Password</label></h3>
+            <input type="password" class="form-control" name="password" placeholder="Password" id="password"
+                   required>
+            <h3><input type="checkbox" value="checked"><b>Remember</b></h3>
             <input type="submit" value="Login" class="form-control btn btn-primary  " name="">
         </form>
         {% with messages = get_flashed_messages() %}
@@ -35,7 +36,7 @@
                 {% endfor %}
             {% endif %}
         {% endwith %}
-        <p>You don't have an account? ☛ <a href="{{ url_for('register') }}">Register</a></p>
+        <h1><p>You don't have an account? ☛ <a href="{{ url_for('register') }}">Register</a></p></h1>
     </div>
 </div>
 </body>

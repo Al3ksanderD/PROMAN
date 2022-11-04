@@ -16,8 +16,7 @@ def get_private_boards(user_id):
         SELECT * FROM boards
         WHERE user_id = %(user_id)s
         ;
-        """
-        , {"user_id": user_id}, fetchall=True)
+        """, {"user_id": user_id}, fetchall=True)
 
 
 @connection.connection_handler
@@ -38,8 +37,7 @@ def rename_board(board, board_id):
     connection.execute_query(
         """UPDATE boards
            set title = %s
-           WHERE id = %s;"""
-        , (board["title"], board_id))
+           WHERE id = %s;""", (board["title"], board_id))
 
 
 @connection.connection_handler
@@ -62,8 +60,7 @@ def get_cards_for_board(cursor, board_id):
         WHERE cards.board_id = %(board_id)s
         ORDER BY card_order 
         ;
-        """
-        , {"board_id": board_id})
+        """, {"board_id": board_id})
     cards = cursor.fetchall()
 
     return cards
@@ -122,8 +119,7 @@ def get_card_status(status_id):
         SELECT * FROM statuses s
         WHERE s.id = %(status_id)s
         ;
-        """
-        , {"status_id": status_id})
+        """, {"status_id": status_id})
 
     return status
 
@@ -156,8 +152,7 @@ def rename_status(status, status_id):
     connection.execute_query(
         """UPDATE statuses
            set title = %s
-           WHERE id = %s;"""
-        , (status["title"], status_id))
+           WHERE id = %s;""", (status["title"], status_id))
 
 
 @connection.connection_handler
@@ -167,8 +162,7 @@ def update_status_id(new_status_id, card_id, status_id):
         UPDATE cards
         set status_id = %s
         WHERE (id = %s AND status_id = %s);
-        """
-        , (new_status_id, card_id, status_id))
+        """, (new_status_id, card_id, status_id))
 
 
 @connection.connection_handler

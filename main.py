@@ -15,8 +15,6 @@ load_dotenv()
 app.secret_key = 'lubie0placki'
 
 
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -24,7 +22,6 @@ def index():
 
 @app.route('/display/<board_id>')
 def display(board_id):
-
     boards = queries.get_boards()
     cards = queries.get_cards_for_board(board_id)
     return render_template('display.html', boards=boards, cards=cards)
@@ -34,7 +31,9 @@ def display(board_id):
 
 @app.route("/board")
 def display_board():
-    return render_template('board.html', title="ProMan Board!")
+    if 'loggedin' in session:
+        return render_template('board.html', title="ProMan Board!")
+    return render_template('please_login.html')
 
 
 # @app.route("/api/boards/private")
@@ -91,7 +90,7 @@ def get_all_cards():
 @app.route("/api/boards/<int:board_id>/cards/")
 @json_response
 def get_cards_for_board(board_id: int):
-    return queries.get_cards_for_board(board_id)
+    return queries.get_cards_for_board(board_id), render_template('index.html')
 
 
 @app.route("/api/boards/<int:board_id>/cards/add", methods=["POST"])

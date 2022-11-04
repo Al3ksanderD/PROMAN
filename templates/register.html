@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css">
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
@@ -14,10 +14,10 @@
 <div class="container">
     <div class="row main">
         <div class="main-login main-center">
-            <h5>Register New user or login existing account</h5>
+            <h1>Register New user</h1>
             <form action="{{ url_for('register') }}" method="post" autocomplete="off">
                 <div class="form-group">
-                    <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                    <h3><label for="name" class="cols-sm-2 control-label">Your Name</label></h3>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                    <h3><label for="email" class="cols-sm-2 control-label">Your Email</label></h3>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="username" class="cols-sm-2 control-label">Username</label>
+                    <h3><label for="username" class="cols-sm-2 control-label">Username</label></h3>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="cols-sm-2 control-label">Password</label>
+                   <h3> <label for="password" class="cols-sm-2 control-label">Password</label></h3>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>

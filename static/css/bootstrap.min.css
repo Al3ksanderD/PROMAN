@@ -41,7 +41,7 @@
 
 html {
     font-family: sans-serif;
-    color:white;
+    color: white;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
@@ -560,9 +560,11 @@ pre code {
     display: -ms-flexbox;
     display: flex;
     -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
     margin-right: -15px;
-    margin-left: -15px
+    margin-left: -15px;
+    align-content: center;
+    justify-content: space-evenly;
+    flex-direction: row-reverse;
 }
 
 .no-gutters {
@@ -9105,7 +9107,6 @@ col-man {
 .center {
     text-align: center;
 }
-
 
 
 body {
